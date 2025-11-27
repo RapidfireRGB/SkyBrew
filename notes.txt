@@ -1,0 +1,30 @@
+main.py
+    -All functionality here.
+
+ingredientDictionary.py
+    -Defines all Alchemy Ingredients and their
+    respective Effects and Magnitudes as key value
+    pairs in dictionaries. Also condenses these into
+    a large dictionary at the bottom, which is what
+    the main script searches through.
+
+effectDictionary.py
+    -Defines all Alchemy effects and their respective
+    cost, magnitude, and duration as dictionaries.
+    Also stores this into a large dictionary at the
+    bottom, which is what the main script searches
+    through.
+
+Overall:
+    -No Creation Club Content.
+    -Formula:
+    Result = fAlchemyIngredientInitMult x BaseMag x SkillMult x Alchemist Perk[1.0 to 2.0] x Benefactor Perk[1.25] x Physician Perk[1.25] x Poisoner Perk[1.25] x Sum of Enchantments[1.0+] x Seeker of Shadows[1.1]
+    fAlchemyIngredientInitMult: 4
+    fAlchemySkillFactor: 1.5
+    BaseMag: Alchemy effect base magnitude
+    BaseMag = Effect Base Mag * Ingredient Mag Mult
+    SkillMult: 1 + (fAlchemySkillFactor - 1) x Skill / 100
+
+TODO    Program exceptions for damage
+    health; magnitude depends on hidden
+    priority value; see uesp.
