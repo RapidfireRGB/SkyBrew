@@ -17,6 +17,8 @@ a = ingredients["Wheat"]
 b = ingredients["Blisterwort"]
 c = None
 shared_effects = [effect for effect in a if effect in b]
+#if c:
+#   shared_effects.append(effect for effect in [a, b] if effect in c)
 
 # Prints text to indicate which effects the ingredients share in common. If none in common, quit program.
 if c:
@@ -39,7 +41,7 @@ effect_costs = {effect: effects[effect]["Base Cost"] for effect in shared_effect
 # Sort effects by descending cost
 sorted_effects = sorted(effect_costs.items(), key=lambda x: x[1], reverse=True)
 
-# Defining main and side effects by position in pair.
+# Defining main and side effects by position in pair. Needed to determine whether certain perks are applied.
 main_effect = sorted_effects[0][0]
 side_effects = [effect for effect, _ in sorted_effects[1:]]
 
@@ -52,6 +54,7 @@ print(f'Side Effect(s): {side_effects}')
 # SKILLMULT: The Formula which governs how Alchemy Skill affects potion magnitude.
 # total_enchants: Additive. Any fortify alchemy buffs go here. (+25% means +0.25).
 # Also handles fortify restoration buffs, which stack multiplicatively with fortify alchemy.
+# For the purposes of Alchemy, Fortify Restoration will only apply in-game if it buffs Spell Magnitude, not Spell Cost Reduction.
 INITMULT = 4
 alch_skill = 15
 SKILLMULT = 1 + (1.5 - 1) * alch_skill/100
@@ -195,15 +198,7 @@ def calculate_potion(effect_name: str):
     else:
         base_dur = base_dur
 
-    # Handling damage health. TODO there is def a better way to do this. Also, fix: Evaluating C causes errors.
-    if effect_name == "Damage Health" and river_betty in (a.values(), b.values()):
-        base_dur = 0
-    elif effect_name == "Damage Health" and emperor_parasol_moss in (a.values(), b.values()):
-        base_dur = 0
-    elif effect_name == "Damage Health" and nirnroot in (a.values(), b.values()):
-        base_dur = 0
-    else:
-        pass
+
 
     # TODO: FINISH DURATION LOGIC; SOME EFFECTS HAVE ODD OR VARIATE DURAITONS.
     # Naming var true_dur so variable names make more sense below.
@@ -228,6 +223,17 @@ def calculate_potion(effect_name: str):
         true_dur = 0
     else:
         true_dur = base_dur
+
+    # Handling damage health. TODO there is def a better way to do this. Also, fix: Evaluating C causes errors.
+    if effect_name in ["Damage Health"] and river_betty in (a.values(), b.values()):
+        true_dur = 0
+    elif effect_name in ["Damage Health"] and emperor_parasol_moss in (a.values(), b.values()):
+        true_dur = 0
+    elif effect_name in ["Damage Health"] and nirnroot in (a.values(), b.values()):
+        true_dur = 0
+    else:
+        pass
+
     print(f'Lasts for {true_dur} seconds.')
 
     # ---------------COST------------------
@@ -237,8 +243,15 @@ def calculate_potion(effect_name: str):
     # Checking if either duration or magnitude equal 0 and selecting formulae accordingly.
 
     true_cost = float
-    #if [a, b] in ["River Betty", "Emperor Parasol Moss", "Nirnroot"]:
-        #true_dur = 10
+
+    #Attempting to handle non-standard behavior for certain Damage Health ingredients. TODO again, fix c here.
+    if effect_name == "Damage Health" and river_betty in (a.values(), b.values()):
+        true_dur = 10
+    elif effect_name == "Damage Health" and emperor_parasol_moss in (a.values(), b.values()):
+        true_dur = 10
+    elif effect_name == "Damage Health" and nirnroot in (a.values(), b.values()):
+        true_dur = 10
+
     if effect_name in ["Slow"]:
         true_cost = math.floor((base_cost * max(50 ** 1.1, 1) * ((true_dur / 10) ** 1.1)))
     elif true_dur > 0 and result > 0:
@@ -247,6 +260,8 @@ def calculate_potion(effect_name: str):
         true_cost = math.floor(base_cost * max(result ** 1.1, 1) * 1)
     elif result == 0 and effect_name not in ["Slow"]:
         true_cost = math.floor(base_cost * max((true_dur/10)**1.1, 1))
+    else:
+        true_cost = math.floor(base_cost * max(result ** 1.1, 1) * ((true_dur/10)**1.1))
 
     print(f'Sells for {true_cost} Gold.')
     return true_cost
