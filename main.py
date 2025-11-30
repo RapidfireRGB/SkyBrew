@@ -2,7 +2,8 @@
 # Importing stuff from other scripts. Needed to check nested values.
 import math
 import sys
-from ingredientDictionary import ingredients, durations
+from ingredientDictionary import (ingredients, durations, jarrin_root, river_betty, emperor_parasol_moss,
+                                  nirnroot, crimson_nirnroot, deathbell, priorities)
 from effectDictionary import effects
 
 # TODO Rewrite to account for Damage Health Priority values. Test to ensure ingredient c is completely functional.
@@ -12,8 +13,8 @@ from effectDictionary import effects
 # Generates a List of the keys shared between Dictionaries a and b (these are the common effects).
 # Put your two ingredients in for a, b, and c. (c represents optional 3rd ingredient.)
 # Format is ingredients["Ingredient Name"]
-a = ingredients["White Cap"]
-b = ingredients["Thistle Branch"]
+a = ingredients["Wheat"]
+b = ingredients["Blisterwort"]
 c = None
 shared_effects = [effect for effect in a if effect in b]
 
@@ -45,7 +46,7 @@ side_effects = [effect for effect, _ in sorted_effects[1:]]
 print(f'Primary Effect: {main_effect}')
 print(f'Side Effect(s): {side_effects}')
 
-#--------------Alchemy Formula------------------
+# --------------Alchemy Formula------------------
 # INITMULT is the initial multiplier in Result formula. INITMULT Always has a value of 4.
 # alch_skill: Player Alchemy Skill Level.
 # SKILLMULT: The Formula which governs how Alchemy Skill affects potion magnitude.
@@ -121,7 +122,7 @@ seeker_of_shadows_pwr = 1
 if seeker_of_shadows:
     seeker_of_shadows_pwr += 0.1
 
-# Function starts here
+# Function starts here. For loop at bottom feeds input.
 def calculate_potion(effect_name: str):
     global a, b, c, INITMULT, alch_skill, SKILLMULT, total_enchants, alchemist_perks, benefactor_perk, \
         physician_perk, poisoner_perk, seeker_of_shadows_pwr
@@ -142,6 +143,23 @@ def calculate_potion(effect_name: str):
     # Handles cases where negative multipliers exist; lowest multiplier is taken instead.
     if magmults < [1]:
         ingr_mult = min(magmults)
+
+    # Handling damage health. TODO there is def a better way to do this. Also, fix: if C is evaluated, errors happen.
+    if effect_name == "Damage Health" and jarrin_root in (a.values(), b.values()):
+        ingr_mult = 100
+    elif effect_name == "Damage Health" and river_betty in (a.values(), b.values()):
+        ingr_mult = 2.5
+    elif effect_name == "Damage Health" and emperor_parasol_moss in (a.values(), b.values()):
+        ingr_mult = 1.5
+    elif effect_name == "Damage Health" and nirnroot in (a.values(), b.values()):
+        ingr_mult = 1
+    elif effect_name == "Damage Health" and crimson_nirnroot in (a.values(), b.values()):
+        ingr_mult = 3
+    elif effect_name == "Damage Health" and deathbell in (a.values(), b.values()):
+        ingr_mult = 1.5
+    else:
+        pass
+
 
     # Finally, rounds the end result according to Skyrim's Alchemy formula. Also handles cases where result is < 0.
     result = round(INITMULT * (base_mag * ingr_mult) * SKILLMULT * alchemist_perks * physician_perk * benefactor_perk
@@ -176,6 +194,16 @@ def calculate_potion(effect_name: str):
         base_dur = round(base_dur * dur_mult[0])
     else:
         base_dur = base_dur
+
+    # Handling damage health. TODO there is def a better way to do this. Also, fix: Evaluating C causes errors.
+    if effect_name == "Damage Health" and river_betty in (a.values(), b.values()):
+        base_dur = 0
+    elif effect_name == "Damage Health" and emperor_parasol_moss in (a.values(), b.values()):
+        base_dur = 0
+    elif effect_name == "Damage Health" and nirnroot in (a.values(), b.values()):
+        base_dur = 0
+    else:
+        pass
 
     # TODO: FINISH DURATION LOGIC; SOME EFFECTS HAVE ODD OR VARIATE DURAITONS.
     # Naming var true_dur so variable names make more sense below.
@@ -228,4 +256,4 @@ total_cost = 0
 for effect in shared_effects:
     effect_cost = calculate_potion(effect)
     total_cost += effect_cost
-print(f'Sells for {total_cost} Gold.')
+print(f'Sells for {total_cost} Gold in Total.')

@@ -926,3 +926,24 @@ costs = {
     ("Salmon Roe", "Fortify Magicka"): 1.05,
     ("Thistle Branch", "Resist Poison"): 0.1
 }
+
+# Dictionary for damage health priority values.
+priorities = {
+    "Jarrin Root": 7,
+    "River Betty": 6,
+    "Emperor Parasol Moss": 5,
+    "Ninroot": 4,
+    "Crimson Nirnroot": 3,
+    "Deathbell": 1,
+    "Ectoplasm": 0,
+    "Falmer Ear": 0,
+    "Human Flesh": 0,
+    "Human Heart": 0,
+    "Imp Stool": 0,
+    "Nightshade": 0,
+    "Red Mountain Flower": 0,
+    "Skeever Tail": 0,
+    "Small Antlers": 0,
+    "Troll Fat": 0,
+    "Void Salts": 0
+}
