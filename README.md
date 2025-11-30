@@ -15,3 +15,4 @@ I am working on:
 - Getting optional third ingredient (variable c in code) to function fully
 - Implementing Priority values for ingredients with Damage Health effect (this matters for magnitude, duration, and gold value calcs).
 - Eventually implementing AE content. Currently, only ingredients and effects available in base Special Edition are implemented in my script.
+- General Revisions and fixes
