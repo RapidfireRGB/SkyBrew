@@ -6,7 +6,7 @@ from ingredientDictionary import (ingredients, durations, jarrin_root, river_bet
                                   nirnroot, crimson_nirnroot, deathbell, priorities)
 from effectDictionary import effects
 
-# TODO Rewrite to account for Damage Health Priority values. Test to ensure ingredient c is completely functional.
+# TODO Test to ensure ingredient c is completely functional. Check every place where a and b are used.
 #  Rewrite Magnitude and/or Duration logic as they are not 100% accurate to the game.
 
 # LONG Global variable section.
@@ -17,14 +17,17 @@ a = ingredients["Wheat"]
 b = ingredients["Blisterwort"]
 c = None
 shared_effects = [effect for effect in a if effect in b]
-#if c:
-#   shared_effects.append(effect for effect in [a, b] if effect in c)
+
+# TODO trying to handle variable c. Currently throws TypeError.
+if c:
+   shared_effects += [effect for effect in [a, b] if effect in c]
+
 
 # Prints text to indicate which effects the ingredients share in common. If none in common, quit program.
-if c:
-    shared_effects = [effect for effect in shared_effects if effect in c]
-    valid_effects = ", ".join(shared_effects)
-    print(f'The three Ingredients share {valid_effects}.')
+#if c:
+    #shared_effects = [effect for effect in shared_effects if effect in c]
+    #valid_effects = ", ".join(shared_effects)
+    #print(f'The three Ingredients share {valid_effects}.')
 
 if shared_effects:
     valid_effects = ", ".join(shared_effects)
@@ -148,17 +151,17 @@ def calculate_potion(effect_name: str):
         ingr_mult = min(magmults)
 
     # Handling damage health. TODO there is def a better way to do this. Also, fix: if C is evaluated, errors happen.
-    if effect_name == "Damage Health" and jarrin_root in (a.values(), b.values()):
+    if effect_name == "Damage Health" and a == jarrin_root or b == jarrin_root:
         ingr_mult = 100
-    elif effect_name == "Damage Health" and river_betty in (a.values(), b.values()):
+    elif effect_name == "Damage Health" and a == river_betty or b == river_betty:
         ingr_mult = 2.5
-    elif effect_name == "Damage Health" and emperor_parasol_moss in (a.values(), b.values()):
+    elif effect_name == "Damage Health" and a == emperor_parasol_moss or b == emperor_parasol_moss:
         ingr_mult = 1.5
-    elif effect_name == "Damage Health" and nirnroot in (a.values(), b.values()):
+    elif effect_name == "Damage Health" and a == nirnroot or b == nirnroot:
         ingr_mult = 1
-    elif effect_name == "Damage Health" and crimson_nirnroot in (a.values(), b.values()):
+    elif effect_name == "Damage Health" and a == crimson_nirnroot or b == crimson_nirnroot:
         ingr_mult = 3
-    elif effect_name == "Damage Health" and deathbell in (a.values(), b.values()):
+    elif effect_name == "Damage Health" and a == deathbell or b == deathbell:
         ingr_mult = 1.5
     else:
         pass
@@ -178,7 +181,6 @@ def calculate_potion(effect_name: str):
         print(f'You created {effect_name}.')
     elif effect_name in ["Slow"]:
         print(f'You created {effect_name}: 50%.')
-
     else:
         print(f'You created {effect_name}: {result} points.')
 
@@ -198,12 +200,11 @@ def calculate_potion(effect_name: str):
     else:
         base_dur = base_dur
 
-
-
     # TODO: FINISH DURATION LOGIC; SOME EFFECTS HAVE ODD OR VARIATE DURAITONS.
     # Naming var true_dur so variable names make more sense below.
 
     true_dur = 0
+
     # Handles cases for duration-only potions where duration is affected by magnitude buffs.
     # Potions with fixed mag, variate durations
     if effect_name in ["Invisibility","Waterbreathing"]:
@@ -221,18 +222,16 @@ def calculate_potion(effect_name: str):
     elif effect_name in ["Restore Health", "Restore Magicka", "Restore Stamina", "Cure Disease",
                     "Damage Stamina", "Damage Magicka"]:
         true_dur = 0
+
+    # TODO rewrite this since true_dur only matters for the print statement here. Also, fix c.
+    elif effect_name in ["Damage Health"] and a == river_betty or b == river_betty:
+        true_dur = 0
+    elif effect_name in ["Damage Health"] and a == emperor_parasol_moss or b == emperor_parasol_moss:
+        true_dur = 0
+    elif effect_name in ["Damage Health"] and a == nirnroot or b == nirnroot:
+        true_dur = 0
     else:
         true_dur = base_dur
-
-    # Handling damage health. TODO there is def a better way to do this. Also, fix: Evaluating C causes errors.
-    if effect_name in ["Damage Health"] and river_betty in (a.values(), b.values()):
-        true_dur = 0
-    elif effect_name in ["Damage Health"] and emperor_parasol_moss in (a.values(), b.values()):
-        true_dur = 0
-    elif effect_name in ["Damage Health"] and nirnroot in (a.values(), b.values()):
-        true_dur = 0
-    else:
-        pass
 
     print(f'Lasts for {true_dur} seconds.')
 
@@ -244,13 +243,16 @@ def calculate_potion(effect_name: str):
 
     true_cost = float
 
-    #Attempting to handle non-standard behavior for certain Damage Health ingredients. TODO again, fix c here.
-    if effect_name == "Damage Health" and river_betty in (a.values(), b.values()):
+    # This should now handle Damage Health cost properly.
+    # Attempting to handle non-standard behavior for certain Damage Health ingredients. TODO again, fix c here.
+    if effect_name in "Damage Health" and a == river_betty or b == river_betty:
         true_dur = 10
-    elif effect_name == "Damage Health" and emperor_parasol_moss in (a.values(), b.values()):
+    elif effect_name in "Damage Health" and a == emperor_parasol_moss or b == emperor_parasol_moss:
         true_dur = 10
-    elif effect_name == "Damage Health" and nirnroot in (a.values(), b.values()):
+    elif effect_name in "Damage Health" and a == nirnroot or b == nirnroot:
         true_dur = 10
+    else:
+        pass
 
     if effect_name in ["Slow"]:
         true_cost = math.floor((base_cost * max(50 ** 1.1, 1) * ((true_dur / 10) ** 1.1)))
