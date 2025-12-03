@@ -16,9 +16,5 @@ effectDictionary.py
     through.
 
 TODO
-    -- Program exceptions for damage
-    health; magnitude depends on hidden
-    priority value; see uesp.
-    -- Main focus is to get Damage Health
+    -- Main focus is to get variable c
     functioning properly.
-
