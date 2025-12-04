@@ -425,8 +425,7 @@ jarrin_root = {
     "Damage Health": 100,
     "Damage Magicka": 1,
     "Damage Stamina": 1,
-    "Damage Magicka Regen": 1,
-    "Frenzy": 1
+    "Damage Magicka Regen": 1
 }
 
 jazbay_grapes = {
@@ -927,7 +926,7 @@ costs = {
     ("Thistle Branch", "Resist Poison"): 0.1
 }
 
-# Dictionary for damage health priority values.
+# Dictionary for damage health priority values. Revisit.
 priorities = {
     "Jarrin Root": 7,
     "River Betty": 6,
