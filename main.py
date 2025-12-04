@@ -1,53 +1,53 @@
 import math
 import sys
 from ingredientDictionary import (ingredients, durations, jarrin_root, river_betty, emperor_parasol_moss,
-                                  nirnroot, crimson_nirnroot, deathbell, priorities)
+                                  nirnroot, crimson_nirnroot, deathbell)# priorities)
 from effectDictionary import effects
 
-# TODO Test to ensure ingredient c is completely functional. Check every place where a and b are used.
-#  Rewrite Magnitude and/or Duration logic as they are not 100% accurate to the game.
-
 # LONG Global variable section.
-# Generates a List of the keys shared between Dictionaries a and b (these are the common effects).
 # Put your two ingredients in for a, b, and c. (c represents optional 3rd ingredient.)
 # Format is ingredients["Ingredient Name"]
 a = ingredients["Wheat"]
 b = ingredients["Blisterwort"]
 c = None
-shared_effects = [effect for effect in a if effect in b]
 
-# TODO trying to handle variable c. Currently throws TypeError.
-#if c:
-   #shared_effects += [effect for effect in [a, b] if effect in c]
-
-
-# Prints text to indicate which effects the ingredients share in common. If none in common, quit program.
+# Creates shared_effects list which contains common elements of a, b, c
 if c:
-    shared_effects = [effect for effect in shared_effects if effect in c]
+    shared_effects = [effect for effect in a if effect in b]
+    shared_effects += [effect for effect in a if effect in c]
+    shared_effects += [effect for effect in b if effect in c]
     valid_effects = ", ".join(shared_effects)
     print(f'The three Ingredients share {valid_effects}.')
 
-if shared_effects:
+elif a and b:
+    shared_effects = [effect for effect in a if effect in b]
     valid_effects = ", ".join(shared_effects)
     print(f'The two Ingredients share {valid_effects}.')
 
 else:
-    print('They share no effects.')
+    print('They share no effects, or values for a and b were not found.')
     sys.exit()
+#print(shared_effects)
 
 # ----------Defining Main/Side Effects----------
+# TODO fix this sort; Skyrim seems to sort based on final cost, not base effect cost. Needed to determine whether certain perks are applied.
+
 # Searches for any costs associated with effects in shared_effects and creates a list of tuple pairs.
 effect_costs = {effect: effects[effect]["Base Cost"] for effect in shared_effects}
 
 # Sort effects by descending cost
 sorted_effects = sorted(effect_costs.items(), key=lambda x: x[1], reverse=True)
 
-# Defining main and side effects by position in pair. Needed to determine whether certain perks are applied.
+# Defining main and side effects by position in pair
 main_effect = sorted_effects[0][0]
 side_effects = [effect for effect, _ in sorted_effects[1:]]
 
 print(f'Primary Effect: {main_effect}')
-print(f'Side Effect(s): {side_effects}')
+if side_effects:
+    print(f'Side Effect(s): {side_effects}')
+
+# Line break for readability.
+print('')
 
 # --------------Alchemy Formula------------------
 # INITMULT is the initial multiplier in Result formula. INITMULT Always has a value of 4.
@@ -56,9 +56,10 @@ print(f'Side Effect(s): {side_effects}')
 # total_enchants: Additive. Any fortify alchemy buffs go here. (+25% means +0.25).
 # Also handles fortify restoration buffs, which stack multiplicatively with fortify alchemy.
 # For the purposes of Alchemy, Fortify Restoration will only apply in-game if it buffs Spell Magnitude, not Spell Cost Reduction.
+# TODO need to test potions at various skill level/perk combinations
 INITMULT = 4
 alch_skill = 15
-SKILLMULT = 1 + (1.5 - 1) * alch_skill/100
+SKILLMULT = 1 + (0.5 * alch_skill)/100
 total_enchants = 1.0
 fortify_restoration = 1.0
 if total_enchants > 1.0:
@@ -96,9 +97,17 @@ if alchemist_rank4:
 if alchemist_rank5:
     alchemist_perks += 0.2
 
+# TODO find a way to do this better.
 # Handling cases where Physician, Benefactor, and Poisoner perks should be applied.
-if physician and shared_effects in ["Restore Health", "Restore Magicka", "Restore Stamina"]:
-    physician_perk += 0.25
+restore_potions = ["Restore Health", "Restore Magicka", "Restore Stamina"]
+try:
+    if (physician and shared_effects[0] in restore_potions
+            or shared_effects[1] in restore_potions
+            or shared_effects[2] in restore_potions
+            or shared_effects[3] in restore_potions):
+        physician_perk += 0.25
+except IndexError:
+    pass
 
 if benefactor and main_effect in ["Cure Disease", "Fortify Alteration", "Fortify Barter", "Fortify Block",
                                 "Fortify Carry Weight", "Fortify Conjuration", "Fortify Destruction",
@@ -127,7 +136,7 @@ if seeker_of_shadows:
     seeker_of_shadows_pwr += 0.1
 
 # Function starts here. For loop at bottom feeds input.
-def calculate_potion(effect_name: str):
+def calculate_potion(effect_name: str) -> int:
     global a, b, c, INITMULT, alch_skill, SKILLMULT, total_enchants, alchemist_perks, benefactor_perk, \
         physician_perk, poisoner_perk, seeker_of_shadows_pwr
 
@@ -144,26 +153,50 @@ def calculate_potion(effect_name: str):
             magmults.append(ingr[effect_name])
     ingr_mult = max(magmults, default=1)
 
-    # Handles cases where negative multipliers exist; lowest multiplier is taken instead.
-    if magmults < [1]:
-        ingr_mult = min(magmults)
-
-    # Handling damage health. TODO there is def a better way to do this.
-    if effect_name == "Damage Health" and a == jarrin_root or b == jarrin_root or c == jarrin_root:
+    # Handling damage health. TODO find a better way to do this.
+    if (effect_name == "Damage Health" and a == jarrin_root
+            or b == jarrin_root
+            or c == jarrin_root):
         ingr_mult = 100
-    elif effect_name == "Damage Health" and a == river_betty or b == river_betty or c == river_betty:
+
+    elif (effect_name == "Damage Health" and a == river_betty
+          or b == river_betty
+          or c == river_betty):
         ingr_mult = 2.5
-    elif effect_name == "Damage Health" and a == emperor_parasol_moss or b == emperor_parasol_moss or c == emperor_parasol_moss:
+
+    elif (effect_name == "Damage Health" and a == emperor_parasol_moss
+          or b == emperor_parasol_moss
+          or c == emperor_parasol_moss):
         ingr_mult = 1.5
-    elif effect_name == "Damage Health" and a == nirnroot or b == nirnroot or c == nirnroot:
+
+    elif (effect_name == "Damage Health" and a == nirnroot
+          or b == nirnroot
+          or c == nirnroot):
         ingr_mult = 1
-    elif effect_name == "Damage Health" and a == crimson_nirnroot or b == crimson_nirnroot or c == crimson_nirnroot:
+
+    elif (effect_name == "Damage Health" and a == crimson_nirnroot
+          or b == crimson_nirnroot
+          or c == crimson_nirnroot):
         ingr_mult = 3
-    elif effect_name == "Damage Health" and a == deathbell or b == deathbell or c == deathbell:
+
+    elif (effect_name == "Damage Health" and a == deathbell
+          or b == deathbell
+          or c == deathbell):
         ingr_mult = 1.5
     else:
         pass
 
+    # Print statements for debugging only.
+    #print(INITMULT)
+    #print(base_mag)
+    #print(ingr_mult)
+    #print(SKILLMULT)
+    #print(alchemist_perks)
+    #print(physician_perk)
+    #print(benefactor_perk)
+    #print(poisoner_perk)
+    #print(total_enchants)
+    #print(seeker_of_shadows_pwr)
 
     # Finally, rounds the end result according to Skyrim's Alchemy formula.
     result = round(INITMULT * (base_mag * ingr_mult) * SKILLMULT * alchemist_perks * physician_perk * benefactor_perk
@@ -174,6 +207,8 @@ def calculate_potion(effect_name: str):
         result = 100
     elif effect_name in ["Slow"]:
         result = 50
+    elif effect_name in ["Waterbreathing", "Invisibility"]:
+        result = 0
     else:
         pass
 
@@ -200,8 +235,10 @@ def calculate_potion(effect_name: str):
     elif effect_name in ["Fortify Lockpicking", "Fortify Pickpocket"]:
         print(f'You created {effect_name}: {result}% easier.')
 
-    elif effect_name in ["Fortify Sneak", "Regenerate Health", "Regenerate Magicka", "Regenerate Stamina",
-                         "Resist Frost", "Resist Fire", "Resist Shock", "Resist Poison", "Resist Magic",
+    elif effect_name in ["Regenerate Health", "Regenerate Magicka", "Regenerate Stamina"]:
+        print(f'You created {effect_name}: {result}% faster regeneration.')
+
+    elif effect_name in ["Fortify Sneak", "Resist Frost", "Resist Fire", "Resist Shock", "Resist Poison", "Resist Magic",
                          "Weakness to Fire", "Weakness to Frost", "Weakness to Shock", "Weakness to Magic",
                          "Weakness to Poison", "Damage Stamina Regen", "Damage Magicka Regen", "Fortify Block",
                          "Fortify Barter", "Fortify Smithing", "Fortify Enchanting", "Slow"]:
@@ -226,7 +263,6 @@ def calculate_potion(effect_name: str):
     else:
         base_dur = base_dur
 
-    # TODO: FINISH DURATION LOGIC; SOME EFFECTS HAVE ODD OR VARIATE DURAITONS.
     # Naming var true_dur so variable names make more sense below.
 
     true_dur = 0
@@ -236,10 +272,12 @@ def calculate_potion(effect_name: str):
     if effect_name in ["Invisibility", "Waterbreathing"]:
         true_dur = round((INITMULT * base_dur) * SKILLMULT * alchemist_perks * benefactor_perk \
                          * total_enchants * seeker_of_shadows_pwr)
+
     # Poisons with fixed mag, variate durations
     elif effect_name in ["Paralysis", "Slow", "Damage Magicka Regen", "Damage Stamina Regen"]:
         true_dur = round((INITMULT * base_dur) * SKILLMULT * alchemist_perks * poisoner_perk \
                          * total_enchants * seeker_of_shadows_pwr)
+
     # Poisons with variate mag, fixed duraions
     elif effect_name in ["Frenzy", "Lingering Damage Health", "Lingering Damage Magicka", "Lingering Damage Stamina"]:
         true_dur = 10
@@ -249,7 +287,7 @@ def calculate_potion(effect_name: str):
                     "Damage Stamina", "Damage Magicka"]:
         true_dur = 0
 
-    # TODO rewrite this since true_dur only matters for the print statement here. Also, fix c.
+    # Handles print statements for the odd damage health ingredients.
     elif effect_name in ["Damage Health"] and a == river_betty or b == river_betty or c == river_betty:
         true_dur = 0
     elif effect_name in ["Damage Health"] and a == emperor_parasol_moss or b == emperor_parasol_moss or c == emperor_parasol_moss:
@@ -259,39 +297,56 @@ def calculate_potion(effect_name: str):
     else:
         true_dur = base_dur
 
-    print(f'Lasts for {true_dur} seconds.')
+    # Handles print statements for effects with no duration.
+    if effect_name in ["Damage Health", "Damage Magicka", "Damage Stamina", "Cure Disease",
+                       "Restore Health", "Restore Magicka", "Restore Stamina"]:
+        pass
+    elif true_dur == 0:
+        pass
+    else:
+        print(f'Lasts for {true_dur} seconds.')
 
     # ---------------COST------------------
-    # TODO SEE DAMAGE HEALTH ON WIKI FOR COST CALC; SOME INGREDIENTS HAVE DUR=0 BUT WILL CALCULATE COST AS IF
-    #   DUR=10
     # Naming true_cost so variable names make more sense.
     # Checking if either duration or magnitude equal 0 and selecting formulae accordingly.
 
     true_cost = float
 
     # This should now handle Damage Health cost properly.
-    # Attempting to handle non-standard behavior for certain Damage Health ingredients. TODO again, fix c here.
-    if effect_name in "Damage Health" and a == river_betty or b == river_betty or c == river_betty:
+    # Attempting to handle non-standard behavior for certain Damage Health ingredients.
+    if (effect_name in "Damage Health" and a == river_betty
+            or b == river_betty
+            or c == river_betty):
         true_dur = 10
-    elif effect_name in "Damage Health" and a == emperor_parasol_moss or b == emperor_parasol_moss or c == emperor_parasol_moss:
+
+    elif (effect_name in "Damage Health" and a == emperor_parasol_moss
+          or b == emperor_parasol_moss
+          or c == emperor_parasol_moss):
         true_dur = 10
-    elif effect_name in "Damage Health" and a == nirnroot or b == nirnroot or c == nirnroot:
+
+    elif (effect_name in "Damage Health" and a == nirnroot
+          or b == nirnroot
+          or c == nirnroot):
         true_dur = 10
     else:
         pass
 
-    if effect_name in ["Slow"]:
-        true_cost = math.floor((base_cost * max(50 ** 1.1, 1) * ((true_dur / 10) ** 1.1)))
-    elif true_dur > 0 and result > 0:
+    #if effect_name in ["Slow"]:
+        #true_cost = math.floor((base_cost * max(50 ** 1.1, 1) * ((true_dur / 10) ** 1.1)))
+
+    if true_dur > 0 and result > 0:
         true_cost = math.floor((base_cost * max(result ** 1.1, 1) * ((true_dur / 10) ** 1.1)))
+
     elif true_dur == 0:
         true_cost = math.floor(base_cost * max(result ** 1.1, 1) * 1)
-    elif result == 0 and effect_name not in ["Slow"]:
+
+    elif result == 0:# and effect_name not in ["Slow"]:
         true_cost = math.floor(base_cost * max((true_dur/10)**1.1, 1))
+
     else:
         true_cost = math.floor(base_cost * max(result ** 1.1, 1) * ((true_dur/10)**1.1))
 
-    print(f'Sells for {true_cost} Gold.')
+    print(f'Sells for {true_cost} Gold.\n')
     return true_cost
 
 # Searches shared_effects for a string to be used as the input to functions. Also, sums the total potion cost in gold.
