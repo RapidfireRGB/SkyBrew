@@ -2,23 +2,26 @@
 Simulates the Alchemy system of 'The Elder Scrolls V: Skyrim' in Python. Work in Progress.
 
 
-How to Use It:
+:gear: How to Use It:
 - First, you need a way to edit and run Python (.py) files on your machine.
 - Download the .py files and ensure they are in the same directory.
 - Run main.py. To select your ingredient combo, you must manually type in values for a, b, or c in the format of ingredients["Ingredient Name"].
     - For Example, 'a = ingredients["Frost Salts"]'
 
 
-What it can do currently:
-- Checks for valid combination of ingredients
-- Prints Potion Magnitude, Duration, and total Gold Value of the Potion
-- Adjusts Potion Calculations based on Player's Alchemy Skill and perks
+:heavy_check_mark: What it can do currently:
+- Checks for valid combination of ingredients.
+- Prints Potion Magnitude, Duration, and Gold Value of the potion's individual effects.
+    - Also prints total Gold Value of the potion overall.
+- Adjusts Potion Calculations based on Player's Alchemy Skill and Perks.
+- Accounts for Fortify Restoration buffs if the user has any Fortify Alchemy Enchants.
 
-I am working on:
-- Getting optional third ingredient (variable c in code) to function fully
-- Implementing Priority values for ingredients with Damage Health effect (this matters for magnitude, duration, and gold value calcs).
+:pencil: I am working on:
+- Implementing a way to accurately distinguish a potion's primary effect from the side effects.
+    - This matters when accounting for Perks such as Poisoner and Benefactor.
+- Fixing the logic around how certain Perks are handled.
 - Eventually implementing AE content. Currently, only ingredients and effects available in base Special Edition are implemented in my script.
 - General Revisions and fixes.
 
 
-Note: I am still very much a noob at Python and coding in general, so I am open to feedback.
+Note: I am still very inexperienced at Python and coding in general, so I am open to feedback.
