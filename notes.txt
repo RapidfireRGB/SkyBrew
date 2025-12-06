@@ -16,5 +16,8 @@ effectDictionary.py
     through.
 
 TODO
-    -- Main focus is to get variable c
-    functioning properly.
+    -- Need to revisit the sorting logic for 
+    determining primary/side effects; not
+    100% accurate to the game.
+    -- This also means I need to test
+    perks afterward
