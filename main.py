@@ -200,53 +200,59 @@ try:
         #print(seeker_of_shadows_pwr)
 
         # Finally, rounds the end result according to Skyrim's Alchemy formula.
-        result = round(INITMULT * (base_mag * ingr_mult) * SKILLMULT * alchemist_perks * physician_perk * benefactor_perk
-                       * poisoner_perk * total_enchants * seeker_of_shadows_pwr)
+        try:
+            result = round(INITMULT * (base_mag * ingr_mult) * SKILLMULT * alchemist_perks * physician_perk * benefactor_perk
+                           * poisoner_perk * total_enchants * seeker_of_shadows_pwr)
 
-        # Handles fixed magnitude effects
-        if effect_name in ["Damage Magicka Regen", "Damage Stamina Regen"]:
-            result = 100
-        elif effect_name in ["Slow"]:
-            result = 50
-        elif effect_name in ["Waterbreathing", "Invisibility"]:
-            result = 0
-        else:
-            pass
 
-        # Handles cases where final potion magnitude is less than 0
-        if result < 0:
-            result = round(base_mag * ingr_mult)
+            # Handles fixed magnitude effects
+            if effect_name in ["Damage Magicka Regen", "Damage Stamina Regen"]:
+                result = 100
+            elif effect_name in ["Slow"]:
+                result = 50
+            elif effect_name in ["Waterbreathing", "Invisibility"]:
+                result = 0
+            else:
+                pass
 
-        # Prints Resulting potion magnitude. Different print statements to further contextualize each effect.
-        if effect_name in ["Waterbreathing", "Invisibility", "Paralysis", "Cure Disease"]:
-            print(f'You created {effect_name}.')
+            # Handles cases where final potion magnitude is less than 0
+            if result < 0:
+                result = round(base_mag * ingr_mult)
 
-        elif effect_name in ["Fortify Alteration", "Fortify Conjuration"]:
-            print(f'You created {effect_name}: spells last for {result}% longer.')
+            # Prints Resulting potion magnitude. Different print statements to further contextualize each effect.
+            if effect_name in ["Waterbreathing", "Invisibility", "Paralysis", "Cure Disease"]:
+                print(f'You created {effect_name}.')
 
-        elif effect_name in ["Fortify Destruction", "Fortify Restoration", "Fortify Illusion"]:
-            print(f'You created {effect_name}: spells are {result}% stronger.')
+            elif effect_name in ["Fortify Alteration", "Fortify Conjuration"]:
+                print(f'You created {effect_name}: spells last for {result}% longer.')
 
-        elif effect_name in ["Fortify Heavy Armor", "Fortify Light Armor"]:
-            print(f'You created {effect_name}: skill increased by {result} points.')
+            elif effect_name in ["Fortify Destruction", "Fortify Restoration", "Fortify Illusion"]:
+                print(f'You created {effect_name}: spells are {result}% stronger.')
 
-        elif effect_name in ["Fortify Marksman", "Fortify One-Handed", "Fortify Two-Handed"]:
-            print(f'You created {effect_name}: deal {result}% more damage.')
+            elif effect_name in ["Fortify Heavy Armor", "Fortify Light Armor"]:
+                print(f'You created {effect_name}: skill increased by {result} points.')
 
-        elif effect_name in ["Fortify Lockpicking", "Fortify Pickpocket"]:
-            print(f'You created {effect_name}: {result}% easier.')
+            elif effect_name in ["Fortify Marksman", "Fortify One-Handed", "Fortify Two-Handed"]:
+                print(f'You created {effect_name}: deal {result}% more damage.')
 
-        elif effect_name in ["Regenerate Health", "Regenerate Magicka", "Regenerate Stamina"]:
-            print(f'You created {effect_name}: {result}% faster regeneration.')
+            elif effect_name in ["Fortify Lockpicking", "Fortify Pickpocket"]:
+                print(f'You created {effect_name}: {result}% easier.')
 
-        elif effect_name in ["Fortify Sneak", "Resist Frost", "Resist Fire", "Resist Shock", "Resist Poison", "Resist Magic",
-                             "Weakness to Fire", "Weakness to Frost", "Weakness to Shock", "Weakness to Magic",
-                             "Weakness to Poison", "Damage Stamina Regen", "Damage Magicka Regen", "Fortify Block",
-                             "Fortify Barter", "Fortify Smithing", "Fortify Enchanting", "Slow"]:
-            print(f'You created {effect_name}: {result}%.')
+            elif effect_name in ["Regenerate Health", "Regenerate Magicka", "Regenerate Stamina"]:
+                print(f'You created {effect_name}: {result}% faster regeneration.')
 
-        else:
-            print(f'You created {effect_name}: {result} points.')
+            elif effect_name in ["Fortify Sneak", "Resist Frost", "Resist Fire", "Resist Shock", "Resist Poison", "Resist Magic",
+                                 "Weakness to Fire", "Weakness to Frost", "Weakness to Shock", "Weakness to Magic",
+                                 "Weakness to Poison", "Damage Stamina Regen", "Damage Magicka Regen", "Fortify Block",
+                                 "Fortify Barter", "Fortify Smithing", "Fortify Enchanting", "Slow"]:
+                print(f'You created {effect_name}: {result}%.')
+
+            else:
+                print(f'You created {effect_name}: {result} points.')
+
+        except OverflowError:
+            print("You attempted to create a potion that is too strong.")
+            sys.exit()
 
         #---------------DURATION------------------
         # Creates a list. If this finds any Duration multiplier among ingredients, it is added to list.
