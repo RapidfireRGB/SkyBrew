@@ -1,5 +1,15 @@
-# All alchemy ingredients go here, formatted as a dictionary. Organized Alphabetically.
+# All alchemy ingredients go here, formatted as a dictionary.
 # Keys are in order of Primary, Secondary, Tertiary, then Quaternary Effects.
+# AE Content stored at bottom.
+
+cc_rarecurios = True
+cc_fishing = True
+cc_saints_seducers = True
+cc_thecause = True
+cc_goblins = True
+cc_plague = True
+cc_forgotten_seasons = True
+cc_bittercup = True
 
 abecean_longfin = {
     "Weakness to Frost": 1,
@@ -62,6 +72,13 @@ beehive_husk = {
     "Fortify Light Armor": 1,
     "Fortify Sneak": 1,
     "Fortify Destruction": 1
+}
+
+berits_ashes = {
+    "Damage Stamina": 1,
+    "Resist Fire": 1,
+    "Fortify Conjuration": 1,
+    "Ravage Stamina": 1
 }
 
 bleeding_crown = {
@@ -253,11 +270,25 @@ falmer_ear = {
     "Fortify Lockpicking": 1
 }
 
+farengars_frost_salt = {
+    "Weakness to Fire": 1,
+    "Resist Frost": 1,
+    "Restore Magicka": 1,
+    "Fortify Conjuration": 1
+}
+
 felsaad_tern_feathers = {
     "Restore Health": 1,
     "Fortify Light Armor": 1,
     "Cure Disease": 1,
     "Resist Magic": 1
+}
+
+fine_cut_void_salts = {
+    "Weakness to Shock": 1,
+    "Resist Magic": 1,
+    "Damage Health": 1,
+    "Fortify Magicka": 1
 }
 
 fire_salts = {
@@ -777,6 +808,517 @@ yellow_mountain_flower = {
     "Fortify Health": 1,
     "Damage Stamina Regen": 1
 }
+#TODO AE Content below.
+alocasia_fruit = {
+    "Regenerate Stamina": 1.2,
+    "Light": 1,
+    "Ravage Magicka": 1.5,
+    "Regenerate Health": 1.2
+}
+
+ambrosia = {
+    "Restore Health": 1.2,
+    "Regenerate Health": 1.2,
+    "Fortify Health": 1.25,
+    "Cure Poison": 1
+}
+
+aster_bloom_core = {
+    "Resist Magic": 2,
+    "Fortify Light Armor": 1.2,
+    "Fortify Block": 1.25,
+    "Paralysis": 1 # TODO Duration x2
+}
+
+bittergreen_petals = {
+    "Lingering Damage Stamina": 1,
+    "Invisibility": 1, # TODO Duration x 1.5
+    "Cure Poison": 1,
+    "Damage Magicka": 1.5
+}
+
+blind_watchers_eye = {
+    "Light": 1,
+    "Fortify Magicka": 1.25,
+    "Fortify Alteration": 1.25,
+    "Spell Absorption": 1
+}
+
+blister_pod_cap = {
+    "Restore Magicka": 1.2,
+    "Fortify Magicka": 1.25,
+    "Night Eye": 1,
+    "Invisibility": 1 # TODO Duration x1.5
+}
+
+bog_beacon = {
+    "Restore Magicka": 1.2,
+    "Fortify Heavy Armor": 1.5,
+    "Fear": 2,
+    "Damage Stamina": 1.33
+}
+
+bunglers_bane = {
+    "Slow": 1, #TODO Duration x2
+    "Ravage Stamina": 1.5,
+    "Damage Stamina Regen": 1, #TODO 2x duration
+    "Resist Magic": 2
+}
+
+chokeberry = {
+    "Damage Health": 1.5,
+    "Ravage Health": 1.5,
+    "Lingering Damage Health": 2,
+    "Weakness to Poison": 1.5
+}
+
+chokeweed = {
+    "Weakness to Frost": 1.33,
+    "Restore Stamina": 1.2,
+    "Cure Disease": 1,
+    "Damage Magicka": 1.33
+}
+
+coda_flower = {
+    "Damage Health": 1.5,
+    "Lingering Damage Stamina": 2,
+    "Ravage Magicka": 1.5,
+    "Fortify Carry Weight": 1.25
+}
+
+comberry = {
+    "Damage Stamina": 1.33,
+    "Spell Absorption": 1,
+    "Restore Magicka": 1.2,
+    "Fortify Destruction": 1.2
+}
+
+congealed_putrescence = {
+    "Ravage Health": 1.5,
+    "Restore Magicka": 1.2,
+    "Weakness to Fire": 1.33,
+    "Fortify Conjuration": 1.2
+}
+
+corkbulb_root = {
+    "Paralysis": 1, #TODO duration x2
+    "Restore Health": 1.2,
+    "Resist Shock": 1.33,
+    "Fortify Marksman": 1.25
+}
+
+daedra_silk = {
+    "Lingering Damage Stamina": 2,
+    "Paralysis": 1, #TODO duration x2
+    "Night Eye": 1,
+    "Invisibility": 1, #TODO duration x1.5
+}
+
+daedra_venin = {
+    "Ravage Health": 1.5,
+    "Paralysis": 1, #TODO duration x2
+    "Fortify Destruction": 1.2,
+    "Spell Absorption": 1
+}
+
+daedroth_teeth = {
+    "Resist Frost": 1.33,
+    "Light": 1,
+    "Damage Magicka Regen": 1, #TODO duration x2
+    "Regenerate Stamina": 1.2
+}
+
+dreugh_wax = {
+    "Weakness to Magic": 1.5,
+    "Frenzy": 1, # TODO duration x2
+    "Fortify Enchanting": 2,
+    "Fortify Smithing": 1.25
+}
+
+elytra_ichor = {
+    "Restore Magicka": 1.2,
+    "Invisibility": 1, #TODO duration x1.5
+    "Slow": 1, #TODO duration x2
+    "Fear": 2
+}
+
+fire_petal = {
+    "Damage Health": 1.5,
+    "Resist Fire": 1.33,
+    "Spell Absorption": 1,
+    "Paralysis": 1, #TODO duration x2
+}
+
+flame_stalk = { #TODO this is rarecurios and saints&seducers
+    "Restore Health": 1.2,
+    "Resist Frost": 1.33,
+    "Weakness to Fire": 1.33,
+    "Invisibility": 1 #TODO duration x1.5
+}
+
+fungus_stalk = {
+    "Restore Magicka": 1.2,
+    "Fortify Health": 1.25,
+    "Fortify Stamina": 1.25,
+    "Waterbreathing": 1 #TODO duration x1.6
+}
+
+gnarl_bark = {
+    "Damage Health": 1.5,
+    "Regenerate Health": 1.2,
+    "Fortify Heavy Armor": 1.5,
+    "Resist Fire": 1.33
+}
+
+gold_kanet = {
+    "Paralysis": 1, #TODO duration x2
+    "Ravage Health": 1.5,
+    "Weakness to Frost": 1.33,
+    "Fortify Smithing": 1.25
+}
+
+hackle_lo_leaf = {
+    "Restore Stamina": 1.2,
+    "Paralysis": 1, #TODO duration x2
+    "Waterbreathing": 1, #TODO duration x1.6
+    "Fortify Restoration": 1.25
+}
+
+heart_of_order = {
+    "Restore Health": 1.2,
+    "Fortify Health": 1.25, #TODO duration x5
+    "Fortify One-Handed": 1.25,
+    "Fortify Two-Handed": 1.25
+}
+
+hunger_tongue = {
+    "Weakness to Fire": 1.33,
+    "Cure Disease": 1,
+    "Cure Poison": 1,
+    "Fortify Magicka": 1.25
+}
+
+hydnum_azure_giant_spore = {
+    "Resist Frost": 1.33,
+    "Fortify Health": 1.25,
+    "Regenerate Health": 1.2,
+    "Light": 1
+}
+
+hypha_facia = {
+    "Weakness to Poison": 1.5,
+    "Frenzy": 1, #TODO duration x2
+    "Ravage Stamina": 1.5,
+    "Resist Magic": 2
+}
+
+imp_gall = {
+    "Damage Health": 1.5,
+    "Weakness to Fire": 1.33,
+    "Fortify Barter": 2,
+    "Cure Poison": 1
+}
+
+kagouti_hide = {
+    "Lingering Damage Stamina": 2,
+    "Night Eye": 1,
+    "Fortify Carry Weight": 1.25,
+    "Resist Shock": 1.33
+}
+
+kresh_fiber = {
+    "Weakness to Magic": 1.5,
+    "Slow": 1, #TODO duration x2
+    "Fortify Sneak": 1.25,
+    "Fortify Pickpocket": 1.25
+}
+
+lichor = {
+    "Restore Magicka": 1.2,
+    "Regenerate Magicka": 1.2,
+    "Fortify Magicka": 1.25,
+    "Spell Absorption": 1
+}
+
+luminous_russula = {
+    "Lingering Damage Stamina": 2,
+    "Lingering Damage Health": 2,
+    "Waterbreathing": 1, # TODO duration x1.6
+    "Fear": 2
+}
+
+marshmerrow = {
+    "Restore Health": 1.2,
+    "Fortify Carry Weight": 1.25,
+    "Weakness to Magic": 1.5,
+    "Damage Stamina": 1.33
+}
+
+minotaur_horn = {
+    "Resist Poison": 1.25,
+    "Damage Magicka Regen": 1, #TODO duration x2
+    "Regenerate Health": 1.2,
+    "Regenerate Magicka": 1.2
+}
+
+ogres_teeth = {
+    "Weakness to Shock": 1.33,
+    "Resist Poison": 1.25,
+    "Lingering Damage Magicka": 2,
+    "Regeerate Health": 1.2
+}
+
+red_kelp_gas_bladder = {
+    "Regenerate Stamina": 1.2,
+    "Waterbreathing": 1, #TODO duration x1.6
+    "Cure Disease": 1,
+    "Fortify Magicka": 1.25
+}
+
+redwort_flower = {
+    "Resist Frost": 1.33,
+    "Cure Poison": 1,
+    "Damage Health": 1.5,
+    "Invisibility": 1 #TODO duration x1.5
+}
+
+roobrush = {
+    "Weakness to Magic": 1.5,
+    "Fortify Sneak": 1.25,
+    "Lingering Damage Health": 2,
+    "Cure Poison": 1
+}
+
+saltrice = {
+    "Restore Stamina": 1.2,
+    "Fortify Magicka": 1.25,
+    "Damage Stamina Regen": 1, #TODO duration x2
+    "Restore Health": 1.2
+}
+
+scalon_fin = {
+    "Waterbreathing": 1, #TODO duration x1.6
+    "Damage Health": 1.5,
+    "Lingering Damage Magicka": 2,
+    "Damage Magicka Regen": 1 #TODO duration x2
+}
+
+scrib_jelly = {
+    "Regenerate Magicka": 1.2,
+    "Cure Poison": 1,
+    "Cure Disease": 1,
+    "Regenerate Stamina": 1.2
+}
+
+scrib_jerky = {
+    "Restore Stamina": 1.2,
+    "Fortify Stamina": 1.25,
+    "Paralysis": 1, #TODO duration x2
+    "Waterbreathing": 1 #TODO duration x1.6
+}
+
+sload_soap = {
+    "Resist Fire": 1.33,
+    "Fear": 2,
+    "Fortify Conjuration": 1.2,
+    "Fortify Alteration": 1.25
+}
+
+stoneflower_petals = {
+    "Weakness to Shock": 1.33,
+    "Fortify One-Handed": 1.25,
+    "Fortify Magicka": 1.25,
+    "Fortify Enchanting": 2
+}
+
+void_essence = {
+    "Restore Health": 1.2,
+    "Fortify Health": 1.25,
+    "Fortify Stamina": 1.25,
+    "Regenerate Health": 1.2
+}
+
+watchers_eye = {
+    "Night Eye": 1,
+    "Fortify Magicka": 1.25,
+    "Fortify Illusion": 1,#TODO duration x5
+    "Spell Absorption": 1
+}
+
+wisp_stalk_caps = {
+    "Damage Health": 1.5,
+    "Weakness to Poison": 1.5,
+    "Frenzy": 1, #TODO duration x2
+    "Regenerate Stamina": 1.2
+}
+
+withering_moon = {
+    "Restore Magicka": 1.2,
+    "Spell Absorption": 1,
+    "Fortify Light Armor": 1.5,
+    "Cure Disease": 1
+}
+
+worms_head_cap = {
+    "Fortify Lockpicking": 1.5,
+    "Night Eye": 1,
+    "Fortify Carry Weight": 1.25,
+    "Slow": 1 #TODO duration x2
+}
+
+angelfish = {
+    "Regenerate Health": 1,
+    "Resist Fire": 1,
+    "Fortify Marksman": 1,
+    "Waterbreathing": 1
+}
+
+angler_larvae = {
+    "Lingering Damage Health": 1,
+    "Regenerate Stamina": 1,
+    "Waterbreathing": 1,
+    "Fortify Two-Handed": 1
+}
+
+glassfish = {
+    "Restore Magicka": 1,
+    "Invisibility": 1,
+    "Fortify Illusion": 0.25,
+    "Fortify Speechcraft": 1 #TODO needs implementing
+}
+
+goldfish = {
+    "Restore Stamina": 1,
+    "Fortify Heavy Armor": 1,
+    "Waterbreathing": 1,
+    "Resist Frost": 1
+}
+
+juvenile_mudcrab = {
+    "Regenerate Stamina": 1,
+    "Fortify Carry Weight": 1,
+    "Cure Disease": 1,
+    "Fortify Two-Handed": 1
+}
+
+lyretail_anthias = {
+    "Restore Magicka": 1,
+    "Fortify Alteration": 1,
+    "Fortify Conjuration": 1,
+    "Fortify Carry Weight": 1
+}
+
+pearlfish = {
+    "Restore Stamina": 1,
+    "Resist Frost": 1,
+    "Fortify Smithing": 1,
+    "Fortify One-Handed": 1
+}
+
+pygmy_sunfish = {
+    "Restore Stamina": 1,
+    "Lingering Damage Magicka": 1,
+    "Damage Magicka Regen": 1,
+    "Fortify Restoration": 1
+}
+
+spadefish = {
+    "Restore Health": 1,
+    "Fortify Lockpicking": 1,
+    "Fortify Pickpocket": 1,
+    "Cure Disease": 1
+}
+#---
+bliss_bug_thorax = {
+    "Weakness to Fire": 1,
+    "Resist Fire": 1,
+    "Fortify Heavy Armor": 1,
+    "Fortify Illusion": 0.25
+}
+
+green_butterfly_wing = {
+    "Restore Magicka": 1,
+    "Fear": 1,
+    "Slow": 1, #TODO duration x6
+    "Invisibility": 1
+}
+
+purple_butterfly_wing = {
+    "Regenerate Health": 1,
+    "Regenerate Magicka": 1,
+    "Regenerate Stamina": 1,
+    "Paralysis": 1
+}
+
+rot_scale = {
+    "Slow": 1, #TODO duraiont x3
+    "Lingering Damage Health": 1, #TODO duration x3
+    "Fear": 1, #TODO duration x0.16
+    "Paralysis": 1
+}
+
+screaming_maw ={
+    "Regnerate Magicka": 4, #TODO duration x0.2
+    "Fortify Alteration": 1.25,
+    "Invisibility": 1, #TODO duration x0.25
+    "Regenerate Health": 4 #TODO duration x0.03
+}
+
+thorn_hook = {
+    "Lingering Damage Health": 1,
+    "Paralysis": 1,
+    "Regenerate Magicka": 0.6, #TODO duration x0.6
+    "Regenerate Health": 0.6#TODO duration x0.6
+}
+
+bloodgrass = {
+    "Invisibility": 1,
+    "Resist Poison": 1,
+    "Slow": 1, #TODO duration x6
+    "Fortify Health": 1.25
+}
+
+harrada = {
+    "Damage Health": 2,
+    "Damage Magicka": 1.33,
+    "Paralysis": 1,
+    "Damage Magicka Regen": 1
+}
+
+spiddal_stick = {
+    "Samage Health": 2,
+    "Damage Magicka": 1.33,
+    "Weakness to Fire": 1,
+    "Restore Stamina": 0.4
+}
+
+steel_blue_entoloma = {
+    "Restore Magicka": 1,
+    "Fortify Destruction": 1,
+    "Resist Frost": 1,
+    "Fortify Carry Weight": 1
+}
+
+mort_flesh = {
+    "Damage Health": 1,
+    "Damage Magicka": 1,
+    "Damage Magicka Regen": 1,
+    "Frenzy": 1
+}
+
+wild_grass_pod = {
+    "Resist Poison": 1,
+    "Ravage Magicka": 1,
+    "Fortify Alteration": 1,
+    "Restore Magicka": 1
+}
+
+ironwood_fruit = {
+    "Restore Health": 1,
+    "Resist Fire": 1,
+    "Damage Stamina": 1,
+    "Restore Magicka": 1
+}
 
 
 # Defines every ingredient as one dictionary for easy importing.
@@ -790,6 +1332,7 @@ ingredients = {
     "Bear Claws": bear_claws,
     "Bee": bee,
     "Beehive Husk": beehive_husk,
+    "Berit's Ashes": berits_ashes,
     "Bleeding Crown": bleeding_crown,
     "Blisterwort": blisterwort,
     "Blue Butterfly Wing": blue_butterfly_wing,
@@ -817,7 +1360,9 @@ ingredients = {
     "Emperor Parasol Moss": emperor_parasol_moss,
     "Eye of Sabre Cat": eye_of_saber_cat,
     "Falmer Ear": falmer_ear,
+    "Farengar's Frost Salt": farengars_frost_salt,
     "Felsaad Tern Feathers": felsaad_tern_feathers,
+    "Fine-Cut Void Salts": fine_cut_void_salts,
     "Fire Salts": fire_salts,
     "Fly Amanita": fly_amanita,
     "Frost Mirriam": frost_mirriam,
@@ -892,6 +1437,102 @@ ingredients = {
     "Wisp Wrappings": wisp_wrappings,
     "Yellow Mountain Flower": yellow_mountain_flower,
 }
+#TODO paste conditional addition to ingredients here
+#  based on which content is enabled.
+if cc_rarecurios:
+    ingredients["Alocasia Fruit"] = alocasia_fruit
+    ingredients["Ambrosia"] = ambrosia
+    ingredients["Aster Bloom Core"] = aster_bloom_core
+    ingredients["Bittergreen Petals"] = bittergreen_petals
+    ingredients["Blind Watcher's Eye"] = blind_watchers_eye
+    ingredients["Blister Pod Cup"] = blister_pod_cap
+    ingredients["Bog Beacon"] = bog_beacon
+    ingredients["Bungler's Bane"] = bunglers_bane
+    ingredients["Chokeberry"] = chokeberry
+    ingredients["Chokeweed"] = chokeweed
+    ingredients["Coda Flower"] = coda_flower
+    ingredients["Comberry"] = comberry
+    ingredients["Congealed Putrescence"] = congealed_putrescence
+    ingredients["Corkbulb Root"] = corkbulb_root
+    ingredients["Daedra Silk"] = daedra_silk
+    ingredients["Daedra Venin"] = daedra_venin
+    ingredients["Daedroth Teeth"] = daedroth_teeth
+    ingredients["Dreugh Wax"] = dreugh_wax
+    ingredients["Elytra Ichor"] = elytra_ichor
+    ingredients["Fire Petal"] = fire_petal
+    ingredients["Fungus Stalk"] = fungus_stalk
+    ingredients["Gnarl Bark"] = gnarl_bark
+    ingredients["Gold Kanet"] = gold_kanet
+    ingredients["Hackle-Lo Leaf"] = hackle_lo_leaf
+    ingredients["Heart of Order"] = heart_of_order
+    ingredients["Hunger Tongue"] = hunger_tongue
+    ingredients["Hydnum Azure Giant Spore"] = hydnum_azure_giant_spore
+    ingredients["Hypha Facia"] = hypha_facia
+    ingredients["Imp Gall"] = imp_gall
+    ingredients["Kagouti Hide"] = kagouti_hide
+    ingredients["Kresh Fiber"] = kresh_fiber
+    ingredients["Lichor"] = lichor
+    ingredients["Luminous Russula"] = luminous_russula
+    ingredients["Marshmerrow"] = marshmerrow
+    ingredients["Minotaur Horn"] = minotaur_horn
+    ingredients["Ogre's Teeth"] = ogres_teeth
+    ingredients["Red Kelp Gas Bladder"] = red_kelp_gas_bladder
+    ingredients["Redwort Flower"] = redwort_flower
+    ingredients["Roobrush"] = roobrush
+    ingredients["Saltrice"] = saltrice
+    ingredients["Scalon Fin"] = scalon_fin
+    ingredients["Scrib Jelly"] = scrib_jelly
+    ingredients["Scrib Jerky"] = scrib_jerky
+    ingredients["Sload Soap"] = sload_soap
+    ingredients["Stoneflower Petals"] = stoneflower_petals
+    ingredients["Void Essence"] = void_essence
+    ingredients["Watcher's Eye"] = watchers_eye
+    ingredients["Wisp Stalk Caps"] = wisp_stalk_caps
+    ingredients["Withering Moon"] = withering_moon
+    ingredients["Worm's Head Cap"] = worms_head_cap
+
+if cc_fishing:
+    ingredients["Angelfish"] = angelfish
+    ingredients["Angler Larvae"] = angler_larvae
+    ingredients["Glassfish"] = glassfish
+    ingredients["Goldfish"] = goldfish
+    ingredients["Juvenile Mudcrab"] = juvenile_mudcrab
+    ingredients["Lyretail Anthias"] = lyretail_anthias
+    ingredients["Pearlfish"] = pearlfish
+    ingredients["Pygmy Sunfish"] = pygmy_sunfish
+    ingredients["Spadefish"] = spadefish
+
+if cc_saints_seducers:
+    ingredients["Bliss Bug Thorax"] = bliss_bug_thorax
+    ingredients["Green Butterfly Wing"] = green_butterfly_wing
+    ingredients["Purple Butterfly Wing"] = purple_butterfly_wing
+    ingredients["Rot Scale"] = rot_scale
+    ingredients["Screaming Maw"] = screaming_maw
+    ingredients["Thorn Hook"] = thorn_hook
+
+if cc_thecause:
+    ingredients["Bloodgrass"] = bloodgrass
+    ingredients["Harrada"] = harrada
+    ingredients["Spiddal Stick"] = spiddal_stick
+
+if cc_goblins:
+    ingredients["Steel Blue Entoloma"] = steel_blue_entoloma
+
+if cc_plague:
+    ingredients["Mort Flesh"] = mort_flesh
+
+if cc_forgotten_seasons:
+    ingredients["Wild Grass Pod"] = wild_grass_pod
+
+if cc_bittercup:
+    ingredients["Ironwood Fruit"] = ironwood_fruit
+
+if cc_rarecurios or cc_saints_seducers:
+    ingredients["Flame Stalk"] = flame_stalk #TODO clean duplicates
+
+
+
+
 
 # Dictionary for Ingredient Duration Multipliers
 durations = {
@@ -901,8 +1542,50 @@ durations = {
     ("Large Antlers", "Slow"): 6,
     ("Salmon Roe", "Waterbreathing"): 12,
     ("Salmon Roe", "Fortify Magicka"): 0.08,
-    ("Thistle Branch", "Fortify Restoration"): 0
+    ("Thistle Branch", "Fortify Restoration"): 0,
 }
+
+if cc_rarecurios:
+    durations[("Aster Bloom Core", "Paralysis")] = 2
+    durations[("Bittergreen Petals", "Invisibility")] = 1.5
+    durations[("Blister Pod Cap", "Invisibility")] = 1.5
+    durations[("Bungler's Bane", "Slow")] = 2
+    durations[("Bungler's Bane", "Damage Stamina Regen")] = 2
+    durations[("Daedra Silk", "Paralysis")] = 2
+    durations[("Daedra Silk", "Invisibility")] = 1.5
+    durations[("Daedra Venin", "Paralysis")] = 2
+    durations[("Daedroth Teeth", "Damage Magicka Regen")] = 2
+    durations[("Dreugh Wax", "Frenzy")] = 2
+    durations[("Elytra Ichor", "Invisibility")] = 1.5
+    durations[("Elytra Ichor", "Slow")] = 2
+    durations[("Fire Petal", "Paralysis")] = 2
+    durations[("Fungus Stalk", "Waterbreathing")] = 1.6
+    durations[("Gold Kanet", "Paralysis")] = 2
+    durations[("Hackle-Lo Leaf", "Paralysis")] = 2
+    durations[("Hackle-Lo Leaf", "Waterbreathing")] = 1.6
+    durations[("Hypha Facia", "Frenzy")] = 2
+    durations[("Kresh Fiber", "Slow")] = 2
+    durations[("Luminous Russula", "Waterbreathing")] = 1.6
+    durations[("Minotaur Horn", "Damage Magicka Regen")] = 2
+    durations[("Red Kelp Gas Bladder", "Waterbreathing")] = 1.6
+    durations[("Redwort Flower", "Invisibility")] = 1.5
+    durations[("Saltrice", "Damage Stamina Regen")] = 2
+    durations[("Scalon Fin", "Waterbreathing")] = 1.6
+    durations[("Scalon Fin", "Damage Magicka Regen")] = 2
+    durations[("Scrib Jerky", "Paralysis")] = 2
+    durations[("Void Essence", "Fortify Health")] = 5
+    durations[("Void Essence", "Fortify Stamina")] = 5
+    durations[("Wisp Stalk Caps", "Frenzy")] = 2
+    durations[("Worm's Head Cap", "Slow")] = 2
+
+
+
+
+
+if cc_rarecurios or cc_saints_seducers:
+    durations[("Flame Stalk", "Invisibility")] = 1.5
+
+
 
 # Dictionary for Ingredient Gold Multipliers. Revisit.
 costs = {

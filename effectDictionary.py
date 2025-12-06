@@ -330,10 +330,35 @@ weakness_to_shock = {
     "Base Duration": 30
 }
 
+cure_poison = {
+    "Base Cost": 0.2,
+    "Base Magnitude": 2,
+    "Base Duration": 0
+}
+
+light = {
+    "Base Cost": 0.5,
+    "Base Magnitude": 0,
+    "Base Duration": 60
+}
+
+night_eye = {
+    "Base Cost": 0.75,
+    "Base Magnitude": 0,
+    "Base Duration": 60
+}
+
+spell_absorption = {
+    "Base Cost": 0.1,
+    "Base Magnitude": 50,
+    "Base Duration": 60
+}
+
 
 # Organizing effects into one dictionary for easy importing.
 effects = {
     "Cure Disease": cure_disease,
+    "Cure Poison": cure_poison,
     "Damage Health": damage_health,
     "Damage Magicka": damage_magicka,
     "Damage Magicka Regen": damage_magicka_regen,
@@ -363,9 +388,11 @@ effects = {
     "Fortify Two-Handed": fortify_two_handed,
     "Frenzy": frenzy,
     "Invisibility": invisibility,
+    "Light": light,
     "Lingering Damage Health": lingering_damage_health,
     "Lingering Damage Magicka": lingering_damage_magicka,
     "Lingering Damage Stamina": lingering_damage_stamina,
+    "Night Eye": night_eye,
     "Paralysis": paralysis,
     "Ravage Health": ravage_health,
     "Ravage Magicka": ravage_magicka,
@@ -382,6 +409,7 @@ effects = {
     "Restore Magicka": restore_magicka,
     "Restore Stamina": restore_stamina,
     "Slow": slow,
+    "Spell Absorption": spell_absorption,
     "Waterbreathing": waterbreathing,
     "Weakness to Fire": weakness_to_fire,
     "Weakness to Frost": weakness_to_frost,
