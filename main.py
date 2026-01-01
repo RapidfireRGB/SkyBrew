@@ -1,5 +1,4 @@
 import math
-import sys
 from ingredientDictionary import (ingredients, durations, jarrin_root, river_betty, emperor_parasol_moss,
                                   nirnroot, crimson_nirnroot, deathbell)# priorities)
 from effectDictionary import effects
@@ -9,6 +8,8 @@ from effectDictionary import effects
 a = ingredients["Wheat"]
 b = ingredients["Blisterwort"]
 c = None
+
+# TODO maybe try adding a starting point function
 
 # Creates shared_effects list which contains common elements of a, b, c
 if c:
@@ -25,8 +26,8 @@ elif a and b:
 
 else:
     print('They share no effects, or values for a and b were not found.')
-    sys.exit()
-#print(shared_effects)
+    quit()
+print(shared_effects)
 
 # ----------Defining Main/Side Effects----------
 # TODO fix this sort; Skyrim seems to sort based on final cost, not base effect cost. Needed to determine whether certain perks are applied.
@@ -152,7 +153,7 @@ def calculate_potion(effect_name: str) -> int|None:
             magmults.append(ingr[effect_name])
     ingr_mult = max(magmults, default=1)
 
-    # Handling damage health quirks. TODO find a better way to do this.
+    # Handling damage health. TODO find a better way to do this.
     if (effect_name == "Damage Health" and a == jarrin_root
             or b == jarrin_root
             or c == jarrin_root):
@@ -293,17 +294,19 @@ def calculate_potion(effect_name: str) -> int|None:
         true_dur = 0
 
     # Handles print statements for the odd damage health ingredients.
-    elif (effect_name in ["Damage Health"] and a == river_betty 
-        or b == river_betty 
-        or c == river_betty):
+    elif (effect_name in ["Damage Health"] and a == river_betty
+          or b == river_betty
+          or c == river_betty):
         true_dur = 0
-    elif (effect_name in ["Damage Health"] and a == emperor_parasol_moss 
-        or b == emperor_parasol_moss 
-        or c == emperor_parasol_moss):
+
+    elif (effect_name in ["Damage Health"] and a == emperor_parasol_moss
+          or b == emperor_parasol_moss
+          or c == emperor_parasol_moss):
         true_dur = 0
-    elif (effect_name in ["Damage Health"] and a == nirnroot 
-        or b == nirnroot 
-        or c == nirnroot):
+
+    elif (effect_name in ["Damage Health"] and a == nirnroot
+          or b == nirnroot
+          or c == nirnroot):
         true_dur = 0
     else:
         true_dur = base_dur
@@ -335,7 +338,7 @@ def calculate_potion(effect_name: str) -> int|None:
         true_dur = 10
     else:
         pass
-    
+
     true_cost = float
     # Checking if either duration or magnitude equal 0 and selecting formulae accordingly.
     if true_dur > 0 and result > 0:
