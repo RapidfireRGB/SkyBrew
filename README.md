@@ -5,9 +5,9 @@ Simulates the Alchemy system of 'The Elder Scrolls V: Skyrim' in Python. Work in
 :gear: How to Use It:
 - First, you need a way to edit and run Python (.py) files on your machine.
 - Clone this repository.
-- Run SkyBrew.py by pasting the following into Command Prompt:
+- You can run SkyBrew.py by pasting the following into Command Prompt:
     - cd Your\Directory\Here
-    - SkyBrew.py
+    - py SkyBrew.py
 
 
 :heavy_check_mark: What it can do currently:
