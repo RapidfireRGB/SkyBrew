@@ -1,4 +1,3 @@
-#from perkInfo import a bunch of shit
 import math
 from src.ingredientDictionary import (ingredients, durations, jarrin_root, river_betty, emperor_parasol_moss,
                                       nirnroot, crimson_nirnroot, deathbell)

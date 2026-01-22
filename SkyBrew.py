@@ -3,6 +3,7 @@ from src.perkInfo import (check_alchemist_ranks, check_physician, check_benefact
                           check_fortify_alch, check_fortify_resto, check_skill)
 from src.logic import calculate_magnitude, calculate_duration, calculate_cost, sort_effects, get_main_effect, \
     get_side_effects
+from src.inputValidation import corrections
 
 # Global perk multipliers. modified in function scope.
 alchemist_perks = 1
@@ -13,8 +14,31 @@ seeker_of_shadows_pwr = 1
 
 # This should return values for a, b, c
 def check_ingredients() -> dict[str, dict]:
-    name = input("Input the name of an ingredient.\n"
-                 "Make sure to capitalize the ingredients (EX: 'Giant's Toe')")
+    try:
+        name = input("Input the name of an ingredient (EX: 'Giant's Toe'):\n").title()
+        temp = ingredients[name]
+
+    # If text input is not a valid key, search corrections dictionary to spellcheck. If a valid string
+    # is not found, call the function again.
+    except KeyError:
+
+        try:
+            temp = corrections[name]
+            confirm = input(f"Did you mean '{temp}' (y/n)?\n").strip().lower()
+
+            if confirm in ["y", "yes"]:
+                print(f"You have selected: '{temp}'.\n")
+                return ingredients[corrections[name]]
+
+            else:
+                print(f"'{name}' is not a valid ingredient. Please try again.\n")
+                check_ingredients()
+
+        except KeyError:
+            print(f"'{name}' is not a valid ingredient. Please try again.\n")
+            check_ingredients()
+
+    print(f"You have selected '{name}'.\n")
     return ingredients[name]
 
 # Trying to implement an entry point function for ease of use.
@@ -22,8 +46,9 @@ def main():
     global alchemist_perks, physician_perk, benefactor_perk, poisoner_perk, seeker_of_shadows_pwr
 
     # Checking perks.
-    user_wants_perks = input("Do you want to manually set your Perks?\nIf not, the script will assume you do not have any Perks. (y/n)\n").strip()
-    if user_wants_perks == 'y':
+    user_wants_perks = input("Do you want to manually set your Perks?\n"
+                             "If not, the script will assume that you do not have any Perks. (y/n)\n").strip()
+    if user_wants_perks in ["y", "yes"]:
         alchemist_perks = check_alchemist_ranks()
         physician_perk = check_physician()
         benefactor_perk = check_benefactor()
@@ -56,8 +81,9 @@ def main():
     TOTAL_ENCHANTS = 1.0
     FORTIFY_RESTORATION = 1.0
 
-    user_wants_skills = input("Do you want to manually set values for your Alchemy Skill and Fortify Alchemy enchantments? (y/n)\n").strip().lower()
-    if user_wants_skills == 'y':
+    user_wants_skills = input("Do you want to manually set values for your Alchemy Skill and Fortify Alchemy enchantments? (y/n)\n"
+                              "If not, the script will assume an Alchemy Skill of 15 with no Enchantments.\n").strip().lower()
+    if user_wants_skills in ["y", "yes"]:
         ALCH_SKILL = check_skill()
         TOTAL_ENCHANTS = check_fortify_alch()
         FORTIFY_RESTORATION = check_fortify_resto()
@@ -94,6 +120,12 @@ def main():
         # Increments total_cost by output of cost function.
         total_cost += calculate_cost(INGR_A, INGR_B, INGR_C, effect_name_string, magnitude, duration)
 
-    print(f'Sells for {total_cost} Gold in Total.')
+    print(f'Sells for {total_cost} Gold in Total.\n\n')
+
+    user_wants_another = input("Do you want to try another Potion(y/n)?\n").strip().lower()
+    if user_wants_another in ["y", "yes"]:
+        main()
+    else:
+        return
 
 main()

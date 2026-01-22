@@ -1,15 +1,6 @@
 # All alchemy ingredients go here, formatted as a dictionary.
 # Keys are in order of Primary, Secondary, Tertiary, then Quaternary Effects.
 
-cc_rarecurios = False
-cc_fishing = False
-cc_saints_seducers = False
-cc_thecause = False
-cc_goblins = False
-cc_plague = False
-cc_forgotten_seasons = False
-cc_bittercup = False
-
 abecean_longfin = {
     "Weakness to Frost": 1,
     "Fortify Sneak": 1,
@@ -255,7 +246,7 @@ emperor_parasol_moss = {
     "Fortify Two-Handed": 1
 }
 
-eye_of_saber_cat = {
+eye_of_sabre_cat = {
     "Restore Stamina": 1,
     "Ravage Health": 1,
     "Damage Magicka": 1,
@@ -1358,7 +1349,7 @@ ingredients = {
     "Ectoplasm": ectoplasm,
     "Elves Ear": elves_ear,
     "Emperor Parasol Moss": emperor_parasol_moss,
-    "Eye of Sabre Cat": eye_of_saber_cat,
+    "Eye Of Sabre Cat": eye_of_sabre_cat,
     "Falmer Ear": falmer_ear,
     "Farengar's Frost Salt": farengars_frost_salt,
     "Felsaad Tern Feathers": felsaad_tern_feathers,
@@ -1438,8 +1429,20 @@ ingredients = {
     "Yellow Mountain Flower": yellow_mountain_flower,
 }
 
-# Adding Ae ingredients to ingredients dict based on toggles.
-if cc_rarecurios:
+# Dictionary for Ingredient Duration Multipliers
+durations = {
+    ("Boar Tusk", "Fortify Stamina"): 5,
+    ("Boar Tusk", "Fortify Health"): 5,
+    ("Giant's Toe", "Fortify Health"): 5,
+    ("Large Antlers", "Slow"): 6,
+    ("Salmon Roe", "Waterbreathing"): 12,
+    ("Salmon Roe", "Fortify Magicka"): 0.08,
+    ("Thistle Branch", "Fortify Restoration"): 0,
+}
+
+# Adding AE ingredients to relevant dictionaries based on toggles.
+def enable_rarecurios() -> None:
+    print("Enabling Rarecurios...")
     ingredients["Alocasia Fruit"] = alocasia_fruit
     ingredients["Ambrosia"] = ambrosia
     ingredients["Aster Bloom Core"] = aster_bloom_core
@@ -1460,6 +1463,10 @@ if cc_rarecurios:
     ingredients["Dreugh Wax"] = dreugh_wax
     ingredients["Elytra Ichor"] = elytra_ichor
     ingredients["Fire Petal"] = fire_petal
+
+    # TODO make this one toggle only when one of rarecurios/saintsseducers is enabled.
+    ingredients["Flame Stalk"] = flame_stalk
+
     ingredients["Fungus Stalk"] = fungus_stalk
     ingredients["Gnarl Bark"] = gnarl_bark
     ingredients["Gold Kanet"] = gold_kanet
@@ -1491,59 +1498,6 @@ if cc_rarecurios:
     ingredients["Withering Moon"] = withering_moon
     ingredients["Worm's Head Cap"] = worms_head_cap
 
-if cc_fishing:
-    ingredients["Angelfish"] = angelfish
-    ingredients["Angler Larvae"] = angler_larvae
-    ingredients["Glassfish"] = glassfish
-    ingredients["Goldfish"] = goldfish
-    ingredients["Juvenile Mudcrab"] = juvenile_mudcrab
-    ingredients["Lyretail Anthias"] = lyretail_anthias
-    ingredients["Pearlfish"] = pearlfish
-    ingredients["Pygmy Sunfish"] = pygmy_sunfish
-    ingredients["Spadefish"] = spadefish
-
-if cc_saints_seducers:
-    ingredients["Bliss Bug Thorax"] = bliss_bug_thorax
-    ingredients["Green Butterfly Wing"] = green_butterfly_wing
-    ingredients["Purple Butterfly Wing"] = purple_butterfly_wing
-    ingredients["Rot Scale"] = rot_scale
-    ingredients["Screaming Maw"] = screaming_maw
-    ingredients["Thorn Hook"] = thorn_hook
-
-if cc_thecause:
-    ingredients["Bloodgrass"] = bloodgrass
-    ingredients["Harrada"] = harrada
-    ingredients["Spiddal Stick"] = spiddal_stick
-
-if cc_goblins:
-    ingredients["Steel Blue Entoloma"] = steel_blue_entoloma
-
-if cc_plague:
-    ingredients["Mort Flesh"] = mort_flesh
-
-if cc_forgotten_seasons:
-    ingredients["Wild Grass Pod"] = wild_grass_pod
-
-if cc_bittercup:
-    ingredients["Ironwood Fruit"] = ironwood_fruit
-
-if cc_rarecurios or cc_saints_seducers:
-    ingredients["Flame Stalk"] = flame_stalk
-
-
-# Dictionary for Ingredient Duration Multipliers
-durations = {
-    ("Boar Tusk", "Fortify Stamina"): 5,
-    ("Boar Tusk", "Fortify Health"): 5,
-    ("Giant's Toe", "Fortify Health"): 5,
-    ("Large Antlers", "Slow"): 6,
-    ("Salmon Roe", "Waterbreathing"): 12,
-    ("Salmon Roe", "Fortify Magicka"): 0.08,
-    ("Thistle Branch", "Fortify Restoration"): 0,
-}
-
-# Adding AE ingredients to durations dict based on toggles.
-if cc_rarecurios:
     durations[("Aster Bloom Core", "Paralysis")] = 2
     durations[("Bittergreen Petals", "Invisibility")] = 1.5
     durations[("Blister Pod Cap", "Invisibility")] = 1.5
@@ -1557,6 +1511,10 @@ if cc_rarecurios:
     durations[("Elytra Ichor", "Invisibility")] = 1.5
     durations[("Elytra Ichor", "Slow")] = 2
     durations[("Fire Petal", "Paralysis")] = 2
+
+    # TODO make this one toggle only when one of rarecurios/saintsseducers is enabled.
+    durations[("Flame Stalk", "Invisibility")] = 1.5
+
     durations[("Fungus Stalk", "Waterbreathing")] = 1.6
     durations[("Gold Kanet", "Paralysis")] = 2
     durations[("Hackle-Lo Leaf", "Paralysis")] = 2
@@ -1575,22 +1533,66 @@ if cc_rarecurios:
     durations[("Void Essence", "Fortify Stamina")] = 5
     durations[("Wisp Stalk Caps", "Frenzy")] = 2
     durations[("Worm's Head Cap", "Slow")] = 2
+    return
 
-if cc_saints_seducers:
+def enable_fishing() -> None:
+    print("Enabling Fishing...")
+    ingredients["Angelfish"] = angelfish
+    ingredients["Angler Larvae"] = angler_larvae
+    ingredients["Glassfish"] = glassfish
+    ingredients["Goldfish"] = goldfish
+    ingredients["Juvenile Mudcrab"] = juvenile_mudcrab
+    ingredients["Lyretail Anthias"] = lyretail_anthias
+    ingredients["Pearlfish"] = pearlfish
+    ingredients["Pygmy Sunfish"] = pygmy_sunfish
+    ingredients["Spadefish"] = spadefish
+    return
+
+def enable_saints_seducers() -> None:
+    print("Enabling Saints & Seducers...")
+    ingredients["Bliss Bug Thorax"] = bliss_bug_thorax
+    ingredients["Green Butterfly Wing"] = green_butterfly_wing
+    ingredients["Purple Butterfly Wing"] = purple_butterfly_wing
+    ingredients["Rot Scale"] = rot_scale
+    ingredients["Screaming Maw"] = screaming_maw
+    ingredients["Thorn Hook"] = thorn_hook
+
     durations[("Green Butterfly Wing", "Slow")] = 6
     durations[("Screaming Maw", "Regenerate Magicka")] = 0.2
     durations[("Screaming Maw", "Invisibility")] = 0.25
     durations[("Screaming Maw", "Regenerate Health")] = 0.03
     durations[("Thorn Hook", "Regenerate Magicka")] = 0.6
     durations[("Thorn Hook", "Regenerate Health")] = 0.6
+    return
 
-if cc_thecause:
+def enable_the_cause() -> None:
+    print("Enabling The Cause...")
+    ingredients["Bloodgrass"] = bloodgrass
+    ingredients["Harrada"] = harrada
+    ingredients["Spiddal Stick"] = spiddal_stick
+
     durations[("Bloodgrass", "Slow")] = 6
+    return
 
-if cc_rarecurios or cc_saints_seducers:
-    durations[("Flame Stalk", "Invisibility")] = 1.5
+def enable_goblins() -> None:
+    print("Enabling Goblins...")
+    ingredients["Steel Blue Entoloma"] = steel_blue_entoloma
+    return
 
+def enable_plague() -> None:
+    print("Enabling Plague...")
+    ingredients["Mort Flesh"] = mort_flesh
+    return
 
+def enable_forgotten_seasons() -> None:
+    print("Enabling Forgotten Seasons...")
+    ingredients["Wild Grass Pod"] = wild_grass_pod
+    return
+
+def enable_bittercup() -> None:
+    print("Enabling Bittercup...")
+    ingredients["Ironwood Fruit"] = ironwood_fruit
+    return
 
 # Dictionary for Ingredient Gold Multipliers. Revisit.
 costs = {

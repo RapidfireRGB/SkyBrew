@@ -3,11 +3,10 @@ Simulates the Alchemy system of 'The Elder Scrolls V: Skyrim' in Python. Work in
 
 
 :gear: How to Use It:
-- First, you need a way to run Python (.py) files on your machine.
-- Clone this repository.
-- You can run SkyBrew.py by pasting the following into Command Prompt:
-    - cd Your\Directory\Here
-    - py SkyBrew.py
+- First, you need a way to edit and run Python (.py) files on your machine.
+- Download the .py files and ensure they are in the same directory.
+- Run main.py. To select your ingredient combo, you must manually type in values for a, b, or c in the format of ingredients["Ingredient Name"].
+    - For Example, 'a = ingredients["Frost Salts"]'
 
 
 :heavy_check_mark: What it can do currently:
@@ -16,7 +15,6 @@ Simulates the Alchemy system of 'The Elder Scrolls V: Skyrim' in Python. Work in
     - Also prints total Gold Value of the potion overall.
 - Adjusts Potion Calculations based on Player's Alchemy Skill and Perks.
 - Accounts for Fortify Restoration buffs if the user has any Fortify Alchemy Enchants.
-
 
 :pencil: I am working on:
 - Implementing a way to accurately distinguish a potion's primary effect from the side effects.
